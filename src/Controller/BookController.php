@@ -88,29 +88,6 @@ class BookController extends AbstractController
         return $this->render('book/showDetails.html.twig', ['book'=>$book]);
     }
 
-    #[Route('/showQueryBuilder', name:'showQueryBuilder')]
-    public function showQueryBuilder(BookRepository $repo){
-        $list=$repo->ShowAllBook();
-        return $this->render('book/showBooks.html.twig',['books'=>$list]);
-
-    }
     
-    #[Route('/showBQL', name: 'showBQL')]
-    public function showBQL(BookRepository $repo){
-        $list=$repo->showALLDQL();
-      return $this->render('book/showBooks.html.twig',['book'=>$list]);
-    }
-
-    #[Route('/research', name: 'research')]
-    public function Research( BookRepository $repo, Request $request)
-    {   $book= new Book();
-        $form=$this->createForm(ResearchType::class,$book);
-        $form->handleRequest($request);
-        if($form->isSubmitted()){
-            return $this->render('book/showBooks.html.twig', [  'books' => $repo->research($book->getRef()), 'form'=>$form->createView() ]);
-        
-        }
-        return $this->render('book/showBooks.html.twig', [  'books' => $repo->findAll(), 'form'=>$form->createView() ]);
-    }
    
 }
