@@ -1,0 +1,39 @@
+<h1>List of Books</h1>
+{{form(form)}}
+<table border="1">
+    {% if books|length == 0 %}
+        <p>No Books Found</p>
+    {% else %}
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Publication date</th>
+                <th>Published</th>
+                <th>Category</th>
+                <th>Author</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                {% if book.published %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.publicationDate|date('Y-m-d') }}</td>
+                        <td>{{ book.published  }}</td>
+                        <td>{{ book.category }}</td>
+                        <td>{{ book.author.id }}</td>
+                        <td>
+                            <a href="{{ path('editBooks', {'id': book.ref}) }}">edit</a>
+                            <a href="{{ path('deleteBooks', {'id': book.ref}) }}">delete</a>
+                            <a href="{{ path('showDetails', {'id': book.ref}) }}">show</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+Number of published books: {{ books|length }}
+<br>
+{# Number of unpublished books: {{ unpublishedBooks|length }} #}
